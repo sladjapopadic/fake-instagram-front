@@ -1,0 +1,34 @@
+<mat-toolbar>
+  <span>Confirm registration</span>
+</mat-toolbar>
+<mat-card class="my-card">
+  <mat-card-content>
+    <form [formGroup]="form" class="my-form">
+      <div>
+        <mat-form-field class="full-width">
+          <mat-label>Username</mat-label>
+          <input [formControlName]="'username'" matInput>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input [formControlName]="'password'" type="password" matInput>
+        </mat-form-field>
+      </div>
+
+      <mat-error>
+        <span *ngIf="registrationConfirmResult === RegistrationConfirmationResult.INVALID_CREDENTIALS">Invalid credentials</span>
+        <span
+          *ngIf="registrationConfirmResult === RegistrationConfirmationResult.INVALID_TOKEN">Token invalid or expired</span>
+        <span *ngIf="registrationConfirmResult === RegistrationConfirmationResult.ALREADY_CONFIRMED">Account already confirmed</span>
+      </mat-error>
+
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="confirm()" mat-raised-button color="primary">Login</button>
+  </mat-card-actions>
+</mat-card>

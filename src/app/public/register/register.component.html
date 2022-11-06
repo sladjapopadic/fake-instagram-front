@@ -1,0 +1,57 @@
+<ng-container *ngIf="!completedRegistration">
+  <mat-toolbar>
+    <span>Registration</span>
+  </mat-toolbar>
+  <mat-card class="my-card">
+    <mat-card-content>
+
+      <form [formGroup]="form" class="my-form">
+
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input [formControlName]="'email'" type="email" matInput>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input [formControlName]="'username'" matInput>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input [formControlName]="'password'" type="password" matInput>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Repeat password</mat-label>
+            <input [formControlName]="'repeatedPassword'" type="password" matInput>
+          </mat-form-field>
+        </div>
+
+
+        <mat-error>
+          <span *ngIf="registrationResult === RegistrationResult.UNAVAILABLE_EMAIL">Email unavailable</span>
+          <span *ngIf="registrationResult === RegistrationResult.UNAVAILABLE_USERNAME">Username unavailable</span>
+          <span *ngIf="notEqualPassword">Passwords don't match</span>
+        </mat-error>
+
+      </form>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="register()" mat-raised-button color="primary">Register</button>
+    </mat-card-actions>
+    <span><a [routerLink]="'../login'">Login</a></span>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="completedRegistration">
+  <div>Successful registration</div>
+</ng-container>
