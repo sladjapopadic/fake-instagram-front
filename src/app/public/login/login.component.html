@@ -1,0 +1,32 @@
+<mat-toolbar>
+  <span>Login</span>
+</mat-toolbar>
+<mat-card class="my-card">
+  <mat-card-content>
+    <form [formGroup]="form" class="my-form">
+      <div>
+        <mat-form-field class="full-width">
+          <mat-label>Username</mat-label>
+          <input [formControlName]="'username'" matInput>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input [formControlName]="'password'" type="password" matInput>
+        </mat-form-field>
+      </div>
+
+      <mat-error>
+        <span *ngIf=loginFailed>Invalid credentials</span>
+      </mat-error>
+    </form>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="login()" mat-raised-button color="primary">Login</button>
+  </mat-card-actions>
+  <span><a [routerLink]="'../register'">Create an account</a> / <a
+    [routerLink]="'../forgotPassword'">Forgot password</a></span>
+</mat-card>
