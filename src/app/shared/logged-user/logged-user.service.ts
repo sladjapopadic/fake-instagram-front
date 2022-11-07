@@ -21,4 +21,12 @@ export class LoggedUserService {
   public getToken() {
     return localStorage.getItem(this.TOKEN_STORAGE_KEY);
   }
+
+  public getUserId(): number {
+    return Number(localStorage.getItem(this.USER_ID_STORAGE_KEY));
+  }
+
+  clearLocalStorage(): void {
+    localStorage.clear();
+  }
 }

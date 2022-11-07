@@ -1,0 +1,74 @@
+<header>
+
+  <div class="container">
+
+    <div class="profile">
+
+      <div class="user-image"><img width="200" height="200" [src]="userImageUrl" alt=""></div>
+
+      <div class="profile-user-settings">
+        <h1 class="profile-user-name">{{ userProfile?.username }}</h1>
+
+        <ng-container *ngIf="loggedUserId != userId">
+          <button *ngIf="!loggedUserFollowing" (click)="follow()" class="btn profile-follow-btn">Follow</button>
+          <button *ngIf="loggedUserFollowing" (click)="unfollow()" class="btn profile-follow-btn">Unfollow</button>
+        </ng-container>
+      </div>
+
+      <div class="profile-stats">
+        <ul>
+          <li (click)="setSelectedTab(ProfileTab.POSTS)"><span
+            class="profile-stat-count">{{ userProfile?.posts?.length }}</span> posts
+          </li>
+          <li (click)="setSelectedTab(ProfileTab.FOLLOWERS)"><span
+            class="profile-stat-count">{{ userProfile?.followers?.length }}</span> followers
+          </li>
+          <li (click)="setSelectedTab(ProfileTab.FOLLOWING)"><span
+            class="profile-stat-count">{{ userProfile?.following?.length }}</span> following
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="gallery">
+
+      <ng-container *ngIf="selectedTab === ProfileTab.POSTS">
+        <div *ngFor="let post of userProfile?.posts">
+          <div class="gallery-item" tabindex="0">
+            <app-post
+              [postDto]="post"
+              [userImageUrl]="getUserImage(post.userId)"
+              [imageUrl]="getPostImage(post.id)"
+              [ownPost]="loggedUserId == userId">
+            </app-post>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedTab === ProfileTab.FOLLOWERS">
+        <div *ngFor="let user of userProfile?.followers">
+          <app-user-card
+            [user]="user"
+            [userImageUrl]="getUserImage(user.userId)">
+          </app-user-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="selectedTab === ProfileTab.FOLLOWING">
+        <div *ngFor="let user of userProfile?.following">
+          <app-user-card
+            [user]="user"
+            [userImageUrl]="getUserImage(user.userId)">
+          </app-user-card>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</main>

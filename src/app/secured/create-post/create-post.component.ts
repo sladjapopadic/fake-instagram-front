@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl} from "@angular/forms";
 import {PostService} from "../../shared/post/service/post.service";
 import {Router} from "@angular/router";
+import {LoggedUserService} from "../../shared/logged-user/logged-user.service";
 
 @Component({
   selector: 'app-create-post',
@@ -14,7 +15,7 @@ export class CreatePostComponent implements OnInit {
   captionFormControl: UntypedFormControl;
   file: File;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(private postService: PostService, private router: Router, private loggedUserService: LoggedUserService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +33,8 @@ export class CreatePostComponent implements OnInit {
   post(): void {
     this.postService.createPost(this.file, this.captionFormControl.value)
       .subscribe(() => {
-          this.router.navigate(['/secured/home']);
+          const userId = this.loggedUserService.getUserId();
+          this.router.navigate(['/secured/users/' + userId]);
         }
       );
   }

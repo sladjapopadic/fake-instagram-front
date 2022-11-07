@@ -1,21 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {LoggedUserService} from "../shared/logged-user/logged-user.service";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
   styleUrls: ['./public.component.css']
 })
-export class PublicComponent implements OnInit {
+export class PublicComponent {
 
-  constructor(private router: Router, private loggedUserService: LoggedUserService) {
-  }
-
-  ngOnInit(): void {
-    if (!this.loggedUserService.isUserLoggedIn()) {
-      this.router.navigate(['public']);
-    }
-  }
 
 }

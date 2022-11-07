@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {LoggedUserGuard} from "./guard/logged-user-guard";
 
 const routes: Routes = [
   {
@@ -7,7 +8,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'public',
+        redirectTo: 'secured',
         pathMatch: 'full'
       },
       {
@@ -16,7 +17,8 @@ const routes: Routes = [
       },
       {
         path: 'secured',
-        loadChildren: () => import('./secured/secured.module').then(module => module.SecuredModule)
+        loadChildren: () => import('./secured/secured.module').then(module => module.SecuredModule),
+        canActivate: [LoggedUserGuard]
       }
     ]
   }
@@ -24,6 +26,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

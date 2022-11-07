@@ -16,7 +16,7 @@ export class PostService {
   }
 
   getPostImageUrl(postId: number): string {
-    return this.URL + '/' + postId + '/image';
+    return this.URL + '/' + postId + '/image?timestamp=' + new Date();
   }
 
   createPost(file: File, caption: string): Observable<void> {
