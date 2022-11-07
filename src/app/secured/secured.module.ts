@@ -6,6 +6,8 @@ import {SharedModule} from "../shared/shared.module";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {HomeComponent} from './home/home.component';
+import {PostComponent} from './post/post.component';
+import {CreatePostComponent} from './create-post/create-post.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent
+      },
+      {
+        path: 'post',
+        component: CreatePostComponent
       }
     ]
   }
@@ -28,7 +34,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     SecuredComponent,
-    HomeComponent
+    HomeComponent,
+    PostComponent,
+    CreatePostComponent
   ],
   imports: [
     CommonModule,

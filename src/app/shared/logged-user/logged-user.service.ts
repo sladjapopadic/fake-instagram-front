@@ -17,4 +17,8 @@ export class LoggedUserService {
     localStorage.setItem(this.TOKEN_STORAGE_KEY, token);
     localStorage.setItem(this.USER_ID_STORAGE_KEY, userId.toString())
   }
+
+  public getToken() {
+    return localStorage.getItem(this.TOKEN_STORAGE_KEY);
+  }
 }

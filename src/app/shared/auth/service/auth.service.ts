@@ -13,6 +13,8 @@ import {ResetPasswordRequestDto} from "../dto/reset-password-request-dto";
 @Injectable()
 export class AuthService {
 
+  URL = 'http://localhost:8080/auth';
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -21,7 +23,7 @@ export class AuthService {
       username: username,
       password: password
     }
-    return this.httpClient.post<LoginResponseDto>('http://localhost:8080/auth/login', loginRequest);
+    return this.httpClient.post<LoginResponseDto>(this.URL + '/login', loginRequest);
   }
 
   public register(username: string, password: string, email: string): Observable<RegisterResponseDto> {
@@ -30,7 +32,7 @@ export class AuthService {
       password: password,
       email: email
     }
-    return this.httpClient.post<RegisterResponseDto>('http://localhost:8080/auth/register', registerRequestDto);
+    return this.httpClient.post<RegisterResponseDto>(this.URL + '/register', registerRequestDto);
   }
 
   public confirm(username: string, password: string, token: string): Observable<RegisterConfirmationResponseDto> {
@@ -39,11 +41,11 @@ export class AuthService {
       password: password,
       token: token
     }
-    return this.httpClient.patch<RegisterConfirmationResponseDto>('http://localhost:8080/auth/confirm', registerConfirmationRequestDto);
+    return this.httpClient.patch<RegisterConfirmationResponseDto>(this.URL + '/confirm', registerConfirmationRequestDto);
   }
 
   public forgotPassword(email: string): Observable<void> {
-    return this.httpClient.post<void>('http://localhost:8080/auth/forgotPassword', email);
+    return this.httpClient.post<void>(this.URL + '/forgotPassword', email);
   }
 
   public resetPassword(oldPassword: string, newPassword: string, token: string): Observable<ResetPasswordResponseDto> {
@@ -52,6 +54,6 @@ export class AuthService {
       newPassword: newPassword,
       token: token
     }
-    return this.httpClient.post<ResetPasswordResponseDto>('http://localhost:8080/auth/resetPassword', resetPasswordRequestDto);
+    return this.httpClient.post<ResetPasswordResponseDto>(this.URL + '/resetPassword', resetPasswordRequestDto);
   }
 }
