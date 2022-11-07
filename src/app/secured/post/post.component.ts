@@ -11,6 +11,7 @@ export class PostComponent implements OnChanges {
   @Input() postDto: PostDto;
   @Input() imageUrl: string;
   @Input() userImageUrl: string;
+  @Input() ownPost: boolean;
   @Output() likeEvent = new EventEmitter<number>();
   @Output() unlikeEvent = new EventEmitter<number>();
 

@@ -1,0 +1,6 @@
+<div *ngFor="let user of users">
+  <app-user-card
+    [user]="user"
+    [userImageUrl]="getUserImageUrl(user.userId)">
+  </app-user-card>
+</div>

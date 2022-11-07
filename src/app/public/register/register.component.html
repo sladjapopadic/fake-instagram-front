@@ -10,7 +10,7 @@
         <div>
           <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
-            <input [formControlName]="'email'" type="email" matInput ngModel email="true">
+            <input [formControlName]="'email'" type="email" required matInput ngModel email="true">
           </mat-form-field>
         </div>
 
@@ -19,12 +19,10 @@
           Invalid email
         </div>
 
-        <br>
-
         <div>
           <mat-form-field class="full-width">
             <mat-label>Username</mat-label>
-            <input [formControlName]="'username'" matInput>
+            <input [formControlName]="'username'" required matInput>
           </mat-form-field>
         </div>
 
@@ -33,12 +31,10 @@
           Invalid username
         </div>
 
-        <br>
-
         <div>
           <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
-            <input [formControlName]="'password'" type="password" matInput>
+            <input [formControlName]="'password'" type="password" required matInput>
           </mat-form-field>
         </div>
 
@@ -47,12 +43,10 @@
           Invalid password
         </div>
 
-        <br>
-
         <div>
           <mat-form-field class="full-width">
             <mat-label>Repeat password</mat-label>
-            <input [formControlName]="'repeatedPassword'" type="password" matInput>
+            <input [formControlName]="'repeatedPassword'" type="password" required matInput>
           </mat-form-field>
         </div>
 

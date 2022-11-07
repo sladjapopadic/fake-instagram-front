@@ -1,15 +1,19 @@
 <mat-card class="example-card">
   <mat-card-header>
-    <div mat-card-avatar><img mat-card-image [src]="userImageUrl"></div>
-    <mat-card-title>{{ postCopy.username }}</mat-card-title>
+    <div class="author-image" mat-card-avatar *ngIf="!ownPost"><a [routerLink]="'../users/' + postDto.userId"><img
+      mat-card-image [src]="userImageUrl"></a></div>
+    <mat-card-title *ngIf="!ownPost"><a [routerLink]="'../users/' + postDto.userId">{{ postCopy.username }}</a>
+    </mat-card-title>
     <mat-card-subtitle>{{ postCopy.caption }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="imageUrl">
-  <mat-card-content>
+  <mat-card-content class="post-image">
+    <img alt="" mat-card-image [src]="imageUrl">
   </mat-card-content>
   <mat-card-actions>
     <span>{{ postCopy.likes }} likes</span>
-    <button *ngIf="!postCopy.liked" mat-button (click)="likeClick(postCopy.id)">LIKE</button>
-    <button *ngIf="postCopy.liked" mat-button (click)="unlikeClick(postCopy.id)">UNLIKE</button>
+    <ng-container *ngIf="!ownPost">
+      <button *ngIf="!postCopy.liked" mat-button (click)="likeClick(postCopy.id)">LIKE</button>
+      <button *ngIf="postCopy.liked" mat-button (click)="unlikeClick(postCopy.id)">UNLIKE</button>
+    </ng-container>
   </mat-card-actions>
 </mat-card>

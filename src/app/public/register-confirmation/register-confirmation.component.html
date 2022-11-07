@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <span>Confirm registration</span>
+  <span>To complete the registration please log in</span>
 </mat-toolbar>
 <mat-card class="my-card">
   <mat-card-content>
@@ -7,7 +7,7 @@
       <div>
         <mat-form-field class="full-width">
           <mat-label>Username</mat-label>
-          <input [formControlName]="'username'" matInput>
+          <input [formControlName]="'username'" required matInput>
         </mat-form-field>
       </div>
 
@@ -16,12 +16,10 @@
         Invalid username
       </div>
 
-      <br>
-
       <div>
         <mat-form-field class="full-width">
           <mat-label>Password</mat-label>
-          <input [formControlName]="'password'" type="password" matInput>
+          <input [formControlName]="'password'" type="password" required matInput>
         </mat-form-field>
       </div>
 

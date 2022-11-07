@@ -16,6 +16,7 @@ export class SecuredComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
+  loggedUserId: number;
 
   constructor(private router: Router, private loggedUserService: LoggedUserService, private breakpointObserver: BreakpointObserver) {
   }
@@ -24,5 +25,15 @@ export class SecuredComponent implements OnInit {
     if (!this.loggedUserService.isUserLoggedIn()) {
       this.router.navigate(['public']);
     }
+    this.loggedUserId = this.loggedUserService.getUserId();
+  }
+
+  logout() {
+    this.loggedUserService.clearLocalStorage();
+    this.router.navigate(['public']);
+  }
+
+  searchUsers(searchTerm: string): void {
+    this.router.navigate(['secured/search/' + searchTerm]);
   }
 }

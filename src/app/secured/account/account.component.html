@@ -1,0 +1,67 @@
+<mat-toolbar>
+  <span>Post</span>
+</mat-toolbar>
+<mat-card class="my-card">
+  <mat-card-content>
+
+    <input type="file" accept=".jpg, .png, .jpeg" (change)="onFileChanged($event)">
+    <button [disabled]="!file" (click)="updateImage()" mat-raised-button color="primary">Post</button>
+
+    <div class="update-field">
+      <mat-form-field class="full-width">
+        <mat-label>Username</mat-label>
+        <input [formControl]="usernameFormControl" matInput>
+      </mat-form-field>
+      <button [disabled]="!usernameFormControl.valid" class="update-button" (click)="updateUsername()" mat-raised-button
+              color="primary">Update
+      </button>
+      <mat-error *ngIf="updateResult === UpdateResult.UNAVAILABLE_USERNAME">
+        Unavailable username
+      </mat-error>
+    </div>
+
+    <div class="errors"
+         *ngIf="usernameFormControl.invalid && (usernameFormControl.touched || usernameFormControl.dirty)">
+      Invalid username
+    </div>
+
+    <div class="update-field">
+      <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input [formControl]="emailFormControl" matInput>
+      </mat-form-field>
+      <button [disabled]="!emailFormControl.valid" class="update-button" (click)="updateEmail()" mat-raised-button
+              color="primary">Update
+      </button>
+      <mat-error *ngIf="updateResult === UpdateResult.UNAVAILABLE_EMAIL">
+        Unavailable email
+      </mat-error>
+    </div>
+
+    <div class="errors"
+         *ngIf="emailFormControl.invalid && (emailFormControl.touched || emailFormControl.dirty)">
+      Invalid email
+    </div>
+
+
+    <div class="update-field">
+      <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input [formControl]="passwordFormControl" type="password" matInput>
+      </mat-form-field>
+      <button [disabled]="!passwordFormControl.valid" class="update-button" (click)="updatePassword()" mat-raised-button
+              color="primary">Update
+      </button>
+    </div>
+
+    <div class="errors"
+         *ngIf="passwordFormControl.invalid && (passwordFormControl.touched || passwordFormControl.dirty)">
+      Invalid password
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+
+  </mat-card-actions>
+</mat-card>
+

@@ -8,6 +8,11 @@ import {MatListModule} from "@angular/material/list";
 import {HomeComponent} from './home/home.component';
 import {PostComponent} from './post/post.component';
 import {CreatePostComponent} from './create-post/create-post.component';
+import {AccountComponent} from './account/account.component';
+import {DiscoverComponent} from './discover/discover.component';
+import {UserCardComponent} from './user-card/user-card.component';
+import {ProfileComponent} from './profile/profile.component';
+import {SearchResultComponent} from './search-result/search-result.component';
 
 const routes: Routes = [
   {
@@ -26,6 +31,22 @@ const routes: Routes = [
       {
         path: 'post',
         component: CreatePostComponent
+      },
+      {
+        path: 'discover',
+        component: DiscoverComponent
+      },
+      {
+        path: 'users/:userId',
+        component: ProfileComponent
+      },
+      {
+        path: 'search/:term',
+        component: SearchResultComponent
+      },
+      {
+        path: 'account',
+        component: AccountComponent
       }
     ]
   }
@@ -36,7 +57,12 @@ const routes: Routes = [
     SecuredComponent,
     HomeComponent,
     PostComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    AccountComponent,
+    DiscoverComponent,
+    UserCardComponent,
+    ProfileComponent,
+    SearchResultComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +70,7 @@ const routes: Routes = [
     SharedModule,
     MatSidenavModule,
     MatListModule
-  ]
+  ],
 })
 export class SecuredModule {
 }
