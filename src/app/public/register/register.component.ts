@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, UntypedFormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/auth/service/auth.service";
 import {RegistrationResult} from "../../shared/auth/enums/registration-result";
+import {UsernameValidator} from "../../shared/validator/username.validator";
+import {PasswordValidator} from "../../shared/validator/password.validator";
 
 @Component({
   selector: 'app-register',
@@ -25,10 +27,13 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usernameFormControl = new FormControl('', [Validators.required]);
-    this.passwordFormControl = new FormControl('', [Validators.required]);
+    this.usernameFormControl = new FormControl('', Validators
+      .compose([Validators.required, UsernameValidator, this.noWhitespaceValidator]));
+    this.passwordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
     this.emailFormControl = new FormControl('', [Validators.required]);
-    this.repeatedPasswordFormControl = new FormControl('', [Validators.required]);
+    this.repeatedPasswordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
 
     this.passwordFormControl.valueChanges
       .subscribe(() => this.notEqualPassword = false);
@@ -42,6 +47,11 @@ export class RegisterComponent implements OnInit {
       email: this.emailFormControl,
       repeatedPassword: this.repeatedPasswordFormControl
     });
+  }
+
+  noWhitespaceValidator(control: FormControl) {
+    const isSpace = (control.value || '').match(/\s/g);
+    return isSpace ? {'whitespace': true} : null;
   }
 
   register(): void {

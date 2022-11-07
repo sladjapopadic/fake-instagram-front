@@ -3,6 +3,7 @@ import {FormControl, FormGroup, UntypedFormControl, Validators} from "@angular/f
 import {AuthService} from "../../shared/auth/service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResetPasswordResult} from "../../shared/auth/enums/reset-password-result";
+import {PasswordValidator} from "../../shared/validator/password.validator";
 
 @Component({
   selector: 'app-reset-password',
@@ -24,9 +25,12 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newPasswordFormControl = new FormControl('', [Validators.required]);
-    this.oldPasswordFormControl = new FormControl('', [Validators.required]);
-    this.repeatedNewPasswordFormControl = new FormControl('', [Validators.required]);
+    this.newPasswordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
+    this.oldPasswordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
+    this.repeatedNewPasswordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
 
     this.repeatedNewPasswordFormControl.valueChanges
       .subscribe(() => this.notEqualPassword = false);
