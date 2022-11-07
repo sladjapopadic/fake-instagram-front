@@ -10,9 +10,16 @@
         <div>
           <mat-form-field class="full-width">
             <mat-label>Email</mat-label>
-            <input [formControlName]="'email'" type="email" matInput>
+            <input [formControlName]="'email'" type="email" matInput ngModel email="true">
           </mat-form-field>
         </div>
+
+        <div class="errors"
+             *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)">
+          Invalid email
+        </div>
+
+        <br>
 
         <div>
           <mat-form-field class="full-width">
@@ -21,6 +28,13 @@
           </mat-form-field>
         </div>
 
+        <div class="errors"
+             *ngIf="form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)">
+          Invalid username
+        </div>
+
+        <br>
+
         <div>
           <mat-form-field class="full-width">
             <mat-label>Password</mat-label>
@@ -28,11 +42,23 @@
           </mat-form-field>
         </div>
 
+        <div class="errors"
+             *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
+          Invalid password
+        </div>
+
+        <br>
+
         <div>
           <mat-form-field class="full-width">
             <mat-label>Repeat password</mat-label>
             <input [formControlName]="'repeatedPassword'" type="password" matInput>
           </mat-form-field>
+        </div>
+
+        <div class="errors"
+             *ngIf="form.get('repeatedPassword')?.invalid && (form.get('repeatedPassword')?.touched || form.get('repeatedPassword')?.dirty)">
+          Invalid password
         </div>
 
 
@@ -46,7 +72,7 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="register()" mat-raised-button color="primary">Register</button>
+      <button [disabled]="!form.valid" (click)="register()" mat-raised-button color="primary">Register</button>
     </mat-card-actions>
     <span><a [routerLink]="'../login'">Login</a></span>
   </mat-card>

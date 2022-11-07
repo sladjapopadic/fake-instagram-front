@@ -7,7 +7,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'secured',
+        redirectTo: 'public',
         pathMatch: 'full'
       },
       {

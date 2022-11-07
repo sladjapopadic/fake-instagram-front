@@ -3,6 +3,8 @@ import {FormControl, FormGroup, UntypedFormControl, Validators} from "@angular/f
 import {AuthService} from "../../shared/auth/service/auth.service";
 import {LoggedUserService} from "../../shared/logged-user/logged-user.service";
 import {Router} from "@angular/router";
+import {PasswordValidator} from "../../shared/validator/password.validator";
+import {UsernameValidator} from "../../shared/validator/username.validator";
 
 @Component({
   selector: 'app-login',
@@ -20,13 +22,20 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usernameFormControl = new FormControl('', [Validators.required]);
-    this.passwordFormControl = new FormControl('', [Validators.required]);
+    this.usernameFormControl = new FormControl('', Validators
+      .compose([Validators.required, UsernameValidator, this.noWhitespaceValidator]));
+    this.passwordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
 
     this.form = new FormGroup({
       username: this.usernameFormControl,
       password: this.passwordFormControl,
     });
+  }
+
+  noWhitespaceValidator(control: FormControl) {
+    const isSpace = (control.value || '').match(/\s/g);
+    return isSpace ? {'whitespace': true} : null;
   }
 
   login(): void {

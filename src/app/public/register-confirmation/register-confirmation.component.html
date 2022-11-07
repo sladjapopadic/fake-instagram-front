@@ -11,11 +11,23 @@
         </mat-form-field>
       </div>
 
+      <div class="errors"
+           *ngIf="form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)">
+        Invalid username
+      </div>
+
+      <br>
+
       <div>
         <mat-form-field class="full-width">
           <mat-label>Password</mat-label>
           <input [formControlName]="'password'" type="password" matInput>
         </mat-form-field>
+      </div>
+
+      <div class="errors"
+           *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
+        Invalid password
       </div>
 
       <mat-error>
@@ -29,6 +41,6 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="confirm()" mat-raised-button color="primary">Login</button>
+    <button [disabled]="!form.valid" (click)="confirm()" mat-raised-button color="primary">Login</button>
   </mat-card-actions>
 </mat-card>

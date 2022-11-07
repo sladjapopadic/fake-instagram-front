@@ -4,6 +4,8 @@ import {FormControl, FormGroup, UntypedFormControl, Validators} from "@angular/f
 import {LoggedUserService} from "../../shared/logged-user/logged-user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RegistrationConfirmationResult} from "../../shared/auth/enums/registration-confirm-result";
+import {UsernameValidator} from "../../shared/validator/username.validator";
+import {PasswordValidator} from "../../shared/validator/password.validator";
 
 @Component({
   selector: 'app-register-confirmation',
@@ -23,13 +25,20 @@ export class RegisterConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usernameFormControl = new FormControl('', [Validators.required]);
-    this.passwordFormControl = new FormControl('', [Validators.required]);
+    this.usernameFormControl = new FormControl('', Validators
+      .compose([Validators.required, UsernameValidator, this.noWhitespaceValidator]));
+    this.passwordFormControl = new FormControl('', Validators
+      .compose([Validators.required, Validators.minLength(8), PasswordValidator]));
 
     this.form = new FormGroup({
       username: this.usernameFormControl,
       password: this.passwordFormControl,
     });
+  }
+
+  noWhitespaceValidator(control: FormControl) {
+    const isSpace = (control.value || '').match(/\s/g);
+    return isSpace ? {'whitespace': true} : null;
   }
 
   confirm(): void {
