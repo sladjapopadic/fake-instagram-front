@@ -13,8 +13,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatOptionModule} from "@angular/material/core";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./auth/service/auth.service";
+import {PostService} from "./post/service/post.service";
+import {InterceptorService} from "./interceptor/interceptor-service";
+import {LikeService} from "./like/service/like.service";
+import {UserService} from "./user/service/user.service";
 
 @NgModule({
   declarations: [],
@@ -54,7 +58,11 @@ import {AuthService} from "./auth/service/auth.service";
     MatSelectModule,
     MatOptionModule
   ],
-  providers: [LoggedUserService, AuthService]
+  providers: [LoggedUserService, AuthService, LikeService, UserService, PostService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }]
 })
 export class SharedModule {
 }
