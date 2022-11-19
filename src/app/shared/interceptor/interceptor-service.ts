@@ -28,7 +28,6 @@ export class InterceptorService {
   handleServerErrors(error: HttpErrorResponse) {
     if (error.status === 400) {
       return throwError(error);
-      //todo
     }
     return throwError(error.error);
   }
